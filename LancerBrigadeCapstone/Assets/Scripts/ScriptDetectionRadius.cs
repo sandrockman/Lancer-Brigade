@@ -12,6 +12,7 @@ public class ScriptDetectionRadius : MonoBehaviour
     public SphereCollider detectSphere;
     public bool firstAwake = true;
     public Collider colliderHolder;
+    //public AttackScript attackThing;
 
     void Awake()
     {
@@ -38,27 +39,47 @@ public class ScriptDetectionRadius : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //call enemymovement coroutine
-            if (scriptThing.isMovementRunning)
-            { Debug.Log("I still see a player."); }
-            else
-            {
-                //StartCoroutine(scriptThing.EnemyBasicMovement());
-                isDetecting = true;
-                Debug.Log("I see a player.");
-                thePlayer = other.transform;
-                eMove.playerCollider = other;
-                Debug.Log(eMove.firstAwake);
-                firstAwake = false;
-                colliderHolder = other;
+            //if (isDetecting && Vector3.Distance(other.transform.position, eMove.playerLoc) < Vector3.Distance(eMove.moveStart.position, eMove.playerLoc))
+            //{
 
-                eMove.enabled = true;
-                Debug.Log(eMove.firstAwake);
-                //eMove.hasRun = true;
+            //    Debug.Log("I see a closer player.");
+            //    thePlayer = other.transform;
+            //    eMove.playerCollider = other;
+            //}
+            //call enemymovement coroutine
+            //if(thisParent.GetComponentInChildren<FillerAttackScript>().canAttack == true)
+            //Debug.Log(thisParent.GetComponentInChildren<FillerAttackScript>().canAttack + "canattack");
+            {
+                if (scriptThing.isMovementRunning)
+                { Debug.Log("I still see a player."); 
+                }
+                else
+                {
+                    //StartCoroutine(scriptThing.EnemyBasicMovement());
+                    isDetecting = true;
+                    Debug.Log("I see a player.");
+                    thePlayer = other.transform;
+                    eMove.playerCollider = other;
+                    Debug.Log(eMove.firstAwake);
+                    firstAwake = false;
+                    colliderHolder = other;
+                    eMove.isMovementRunning = true;
+                    eMove.enabled = true;
+                    Debug.Log(eMove.firstAwake);
+                    //eMove.hasRun = true;
+
+                }
 
             }
+            //else
+            //{
+            //    Debug.Log("can't attack");
+            //    eMove.hasRun = false;
+            //}
 
         }
+
+        
     }
 
     void OnTriggerExit(Collider other)
@@ -82,4 +103,25 @@ public class ScriptDetectionRadius : MonoBehaviour
 
         }
     }
+
+
+    //void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.collider.tag == "Separation")
+    //    {
+    //        print("Points colliding: " + other.contacts.Length);
+    //        print("First normal of the point that collide: " + other.contacts[0].normal);
+    //    }
+    //}
+    //void OnTriggerStay(Collider other)
+    //{
+    //    if(other.tag == "Player")
+    //    {
+    //        if (thisParent.GetComponentInChildren<FillerAttackScript>().canAttack != true)
+    //        {
+    //            //Debug.Log("can't attack");
+    //            eMove.hasRun = false;
+    //        }
+    //    }
+    //}
 }

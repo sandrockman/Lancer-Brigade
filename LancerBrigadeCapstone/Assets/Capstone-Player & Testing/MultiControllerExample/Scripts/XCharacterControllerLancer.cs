@@ -80,11 +80,11 @@ public class XCharacterControllerLancer : MonoBehaviour {
             return;
         }
         //used to set the forward/back movement of the character locally
-        moveJoy.x = currentState.ThumbSticks.Right.X;
-        moveJoy.y = currentState.ThumbSticks.Right.Y;
+        moveJoy.x = currentState.ThumbSticks.Left.X;
+        moveJoy.y = currentState.ThumbSticks.Left.Y;
         //used to set the xz rotation of the character globally.
-        aimJoy.x = currentState.ThumbSticks.Left.X;
-        aimJoy.y = currentState.ThumbSticks.Left.Y;
+        aimJoy.x = currentState.ThumbSticks.Right.X;
+        aimJoy.y = currentState.ThumbSticks.Right.Y;
 
         //jump by pushing A
         if (previousState.Buttons.A == ButtonState.Released &&

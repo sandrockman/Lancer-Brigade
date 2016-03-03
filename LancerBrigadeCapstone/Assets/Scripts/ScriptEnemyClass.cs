@@ -25,13 +25,15 @@ public class ScriptEnemyClass : MonoBehaviour
     public float speed;
     //tooltip: "How many frames of delay does this enemy have before it can react to the player?"
     public int reactionTime;
+    //tooltip: "Can this enemy cancel its animations?"
+    public bool canFrameCancel;
 
     //public Projectile[10];
 
     public ScriptDetectionRadius detector;
     public ScriptEnemyMovement eMove;
 
-        //inform designers to not fuck with these variable
+    //inform designers to not fuck with these variable
     public bool isMovementRunning = false;
     public bool isAttackRunning = false;
 
