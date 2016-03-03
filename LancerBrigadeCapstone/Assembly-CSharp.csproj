@@ -65,6 +65,8 @@
      <Compile Include="Assets\Scripts\AttackScript.cs" />
      <Compile Include="Assets\Scripts\BaseVariableScript.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\FillerArrowScript.cs" />
+     <Compile Include="Assets\Scripts\FillerAttackScript.cs" />
      <Compile Include="Assets\Scripts\GameFinish.cs" />
      <Compile Include="Assets\Scripts\HitScript.cs" />
      <Compile Include="Assets\Scripts\OutOfBounds.cs" />
@@ -73,6 +75,7 @@
      <Compile Include="Assets\Scripts\ScriptDetectionRadius.cs" />
      <Compile Include="Assets\Scripts\ScriptEnemyClass.cs" />
      <Compile Include="Assets\Scripts\ScriptEnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\ScriptEnemyWallCollision.cs" />
      <Compile Include="Assets\Scripts\UIActivator.cs" />
      <Compile Include="Assets\Scripts\invisiblePointer.cs" />
      <Compile Include="Assets\Scripts\movement.cs" />
