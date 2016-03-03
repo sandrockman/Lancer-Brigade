@@ -50,37 +50,37 @@ Library/
 
 Temp/
 
-Assets/Capstone-Levels/
+Capstone-Levels/
 
-Assets/Capstone-Player & Testing/
+Capstone-Player & Testing/
 
-Assets/Editor/
+Editor/
 
-Assets/Enemies/
+Enemies/
 
-Assets/Fonts/
+Fonts/
 
-Assets/Gaia/
+Gaia/
 
-Assets/Materials/
+Materials/
 
-Assets/MenuArt/
+MenuArt/
 
-Assets/Particles/
+Particles/
 
-Assets/Plugins/
+Plugins/
 
-Assets/Prefabs/
+Prefabs/
 
-Assets/ProCore/
+ProCore/
 
-Assets/Scenes/
+Scenes/
 
-Assets/Scripts/
+Scripts/
 
-Assets/UnityVS/
+UnityVS/
 
-Assets/XInputDotNet/
+XInputDotNet/
 
 
 
