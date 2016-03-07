@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using XInputDotNetPure;
+using UnityEngine.UI;
 
 /**
  *@author Victor Haskins
@@ -17,11 +18,18 @@ public class LevelPlayerSetupScript : MonoBehaviour {
     [Tooltip("Empty game object used to hold and keep track of player objects.")]
     public GameObject playerContainer;
 
+    //added sprint 3
+    [Tooltip("Canvas filler for Pause Menu. Meant to be modified later.")]
+    public GameObject pauseCanvas;
+
     /// <summary>
     /// Awake function to Create the appropriate number of players depending on
     /// whether there are 1 or two players setup for play from the lobby.
     /// </summary>
 	void Awake () {
+        //pauseCanvas.enabled = false;
+        pauseCanvas.SetActive(false);
+
         switch (StaticSpawnController.GetSetPlayers())
         {
             case 0://no players added.

@@ -49,6 +49,8 @@ public class XCharacterControllerLancer : MonoBehaviour {
     //public Transform aimTransform;
     [Tooltip("turns on/off OnGUI button inputs.")]
     public bool testButtonInputs = true;
+    [Tooltip("Camera that dictates the actions of Pausing the game.")]
+    public Camera camera;
     //previous and current states of the controller for the specific index
     GamePadState previousState;
     GamePadState currentState;
@@ -61,6 +63,12 @@ public class XCharacterControllerLancer : MonoBehaviour {
     bool braking = false;
     //artifact from previous versions
     //float timeElapsedRunning = 0f;
+
+    void Start()
+    {
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //pauseScript.pCanvas = GameObject.Find("Main Camera").GetComponent<PauseBehaviorScript>().pCanvas;
+    }
 
     void Update()
     {
@@ -79,6 +87,17 @@ public class XCharacterControllerLancer : MonoBehaviour {
         {
             return;
         }
+
+        //Pause by pushing Start Button OR Enter key
+        if (previousState.Buttons.Start == ButtonState.Released &&
+            currentState.Buttons.Start == ButtonState.Pressed ||
+            Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            camera.GetComponent<PauseBehaviorScript>().PauseGame();
+            GameObject tempCanvas = GameObject.Find("PauseCanvas") as GameObject;
+            tempCanvas.SetActive(true);
+        }
+
         //used to set the forward/back movement of the character locally
         moveJoy.x = currentState.ThumbSticks.Left.X;
         moveJoy.y = currentState.ThumbSticks.Left.Y;
