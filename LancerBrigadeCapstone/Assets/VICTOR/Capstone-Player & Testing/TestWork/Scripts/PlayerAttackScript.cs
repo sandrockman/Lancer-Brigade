@@ -37,6 +37,11 @@ public class PlayerAttackScript : MonoBehaviour {
 	    
 	}
 
+    public void StartLanceAttack()
+    {
+        StartCoroutine("LanceAttack");
+    }
+
     IEnumerator LanceAttack()
     {
 
@@ -48,6 +53,11 @@ public class PlayerAttackScript : MonoBehaviour {
         canAttack = true;
     }
 
+    public void StartLeftSideAttack()
+    {
+        StartCoroutine("LeftSideAttack");
+    }
+
     IEnumerator LeftSideAttack()
     {
         canAttack = false;
@@ -56,6 +66,11 @@ public class PlayerAttackScript : MonoBehaviour {
         leftSideAttackBox.SetActive(false);
         yield return new WaitForSeconds(cooldownTime);
         canAttack = true;
+    }
+
+    public void StartRightSideAttack()
+    {
+        StartCoroutine("RightSideAttack");
     }
 
     IEnumerator RightSideAttack()
@@ -80,7 +95,7 @@ public class PlayerAttackScript : MonoBehaviour {
     }
     //*/
 
-    void TrampleAttackStart()
+    public void TrampleAttackStart()
     {
         //canAttack = false;
         trampleAttackBox.SetActive(true);
@@ -90,7 +105,7 @@ public class PlayerAttackScript : MonoBehaviour {
         //canAttack = true;
     }
 
-    void TrampleAttackEnd()
+    public void TrampleAttackEnd()
     {
         trampleAttackBox.SetActive(false);
     }

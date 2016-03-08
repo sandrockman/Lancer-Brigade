@@ -197,7 +197,7 @@ public class XCharacterControllerLancer : MonoBehaviour {
         {
             if (attackScript.canAttack)
             {
-                StartCoroutine("LeftSideAttack");
+                attackScript.StartLeftSideAttack();
             }
         }
 
@@ -207,7 +207,7 @@ public class XCharacterControllerLancer : MonoBehaviour {
         {
             if (attackScript.canAttack)
             {
-                StartCoroutine("LanceAttack");
+                attackScript.StartLanceAttack();
             }
         }
 
@@ -217,7 +217,7 @@ public class XCharacterControllerLancer : MonoBehaviour {
         {
             if (attackScript.canAttack)
             {
-                StartCoroutine("RightSideAttack");
+                attackScript.StartRightSideAttack();
             }
         }
 
@@ -232,11 +232,13 @@ public class XCharacterControllerLancer : MonoBehaviour {
         //velocity.z = moveJoy.y * moveSpeed;
 
         //Vector3 velocity = Vector3.forward * moveSpeed;
-        Vector3 velocity = transform.TransformDirection(Vector3.forward * moveSpeed);
-        velocity.y = GetComponent<Rigidbody>().velocity.y;
+        //Vector3 velocity = transform.TransformDirection(Vector3.forward * moveSpeed);
+        Vector3 velocity = transform.position;
+        velocity += transform.TransformDirection(Vector3.forward * moveSpeed);
+        //velocity.y = GetComponent<Rigidbody>().velocity.y;
         //  fail. Boomerang action. Thought I could get away with it because
         //  the start and end points move with the character
-        //transform.position = Vector3.Lerp(transform.position, velocity, Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, velocity, Time.fixedDeltaTime );
         //  fail. moves much faster and will eventually clip through the terrain
         //  might work with some tweaking, but still just as choppy as the tried and true.
         //  ALSO, direction and rotation are out of sync with this
@@ -248,7 +250,7 @@ public class XCharacterControllerLancer : MonoBehaviour {
             jump = false;
         }
 
-        GetComponent<Rigidbody>().velocity = velocity;
+        //GetComponent<Rigidbody>().velocity = velocity;
         if (braking)
             braking = false;
 
