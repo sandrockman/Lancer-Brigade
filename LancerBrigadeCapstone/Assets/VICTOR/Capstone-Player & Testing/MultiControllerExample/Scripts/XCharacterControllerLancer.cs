@@ -49,6 +49,10 @@ public class XCharacterControllerLancer : MonoBehaviour {
     //public Transform aimTransform;
     [Tooltip("turns on/off OnGUI button inputs.")]
     public bool testButtonInputs = true;
+    [Tooltip("Canvas gameobject that dictates the actions of Pausing the game.")]
+    public GameObject pauseCanvas;
+    [Tooltip("Script to turn on attack colliders.")]
+    public PlayerAttackScript attackScript;
     //previous and current states of the controller for the specific index
     GamePadState previousState;
     GamePadState currentState;
@@ -61,6 +65,16 @@ public class XCharacterControllerLancer : MonoBehaviour {
     bool braking = false;
     //artifact from previous versions
     //float timeElapsedRunning = 0f;
+
+    public float smooth = 5.0f;
+
+    void Awake()
+    {
+        pauseCanvas = GameObject.Find("PauseCanvas");
+        attackScript.playerIndex = playerIndex;
+        //camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //pauseScript.pCanvas = GameObject.Find("Main Camera").GetComponent<PauseBehaviorScript>().pCanvas;
+    }
 
     void Update()
     {
@@ -79,6 +93,18 @@ public class XCharacterControllerLancer : MonoBehaviour {
         {
             return;
         }
+
+        //Pause by pushing Start Button OR Enter key
+        if (previousState.Buttons.Start == ButtonState.Released &&
+            currentState.Buttons.Start == ButtonState.Pressed ||
+            Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            //camera.GetComponent<PauseBehaviorScript>().PauseGame();
+            //GameObject tempCanvas = GameObject.Find("PauseCanvas") as GameObject;
+            Time.timeScale = 0f;
+            pauseCanvas.SetActive(true);
+        }
+
         //used to set the forward/back movement of the character locally
         moveJoy.x = currentState.ThumbSticks.Left.X;
         moveJoy.y = currentState.ThumbSticks.Left.Y;
@@ -165,6 +191,37 @@ public class XCharacterControllerLancer : MonoBehaviour {
         //if(aimJoy.sqrMagnitude > 0)
         //	aimTransform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0,0,90) * new Vector3( aimJoy.x, aimJoy.y, 0));
 
+        //LEFT SIDE ATTACK BY PRESSING X BUTTON
+        if (previousState.Buttons.X == ButtonState.Released &&
+            currentState.Buttons.X == ButtonState.Pressed)
+        {
+            if (attackScript.canAttack)
+            {
+                attackScript.StartLeftSideAttack();
+            }
+        }
+
+        //LANCE ATTACK BY PRESSING Y BUTTON
+        if (previousState.Buttons.Y == ButtonState.Released &&
+            currentState.Buttons.Y == ButtonState.Pressed)
+        {
+            if (attackScript.canAttack)
+            {
+                attackScript.StartLanceAttack();
+            }
+        }
+
+        //RIGHT SIDE ATTACK BY PRESSING B BUTTON
+        if (previousState.Buttons.B == ButtonState.Released &&
+            currentState.Buttons.B == ButtonState.Pressed)
+        {
+            if (attackScript.canAttack)
+            {
+                attackScript.StartRightSideAttack();
+            }
+        }
+
+
         previousState = currentState;
     }
 
@@ -175,8 +232,17 @@ public class XCharacterControllerLancer : MonoBehaviour {
         //velocity.z = moveJoy.y * moveSpeed;
 
         //Vector3 velocity = Vector3.forward * moveSpeed;
-        Vector3 velocity = transform.TransformDirection(Vector3.forward * moveSpeed);
-        velocity.y = GetComponent<Rigidbody>().velocity.y;
+        //Vector3 velocity = transform.TransformDirection(Vector3.forward * moveSpeed);
+        Vector3 velocity = transform.position;
+        velocity += transform.TransformDirection(Vector3.forward * moveSpeed);
+        //velocity.y = GetComponent<Rigidbody>().velocity.y;
+        //  fail. Boomerang action. Thought I could get away with it because
+        //  the start and end points move with the character
+        transform.position = Vector3.Lerp(transform.position, velocity, Time.fixedDeltaTime );
+        //  fail. moves much faster and will eventually clip through the terrain
+        //  might work with some tweaking, but still just as choppy as the tried and true.
+        //  ALSO, direction and rotation are out of sync with this
+        //transform.Translate(transform.forward * moveSpeed * Time.fixedDeltaTime, Space.Self);
 
         if (jump)
         {
@@ -184,7 +250,7 @@ public class XCharacterControllerLancer : MonoBehaviour {
             jump = false;
         }
 
-        GetComponent<Rigidbody>().velocity = velocity;
+        //GetComponent<Rigidbody>().velocity = velocity;
         if (braking)
             braking = false;
 
