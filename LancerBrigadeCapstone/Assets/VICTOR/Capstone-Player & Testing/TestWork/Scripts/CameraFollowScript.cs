@@ -60,9 +60,15 @@ public class CameraFollowScript : MonoBehaviour
         //updates the current distance from the center point
         UpdateDistance();
         //update end location
-        Follow();
+        //Follow();
     }
 
+
+    void FixedUpdate()
+    {
+        //update end location
+        Follow();
+    }
     /// <summary>
     /// Sets up new and old positions for the camera by calling the FindPos()
     /// function and moving the camera 
@@ -72,6 +78,7 @@ public class CameraFollowScript : MonoBehaviour
         startLoc = transform.position;
         endLoc = FindPos();
         transform.position = Vector3.Lerp(startLoc, endLoc, Time.deltaTime * smooth);
+        //transform.position = endLoc;
     }
 
     /// <summary>
