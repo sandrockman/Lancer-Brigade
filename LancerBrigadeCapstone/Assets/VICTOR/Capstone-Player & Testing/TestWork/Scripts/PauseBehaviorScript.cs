@@ -31,6 +31,6 @@ public class PauseBehaviorScript : MonoBehaviour {
         pCanvas.SetActive(false);
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenuScene");
-        
+        Debug.Log("Quit Game.");
     }
 }

@@ -22,13 +22,18 @@ public class LevelPlayerSetupScript : MonoBehaviour {
     [Tooltip("Canvas filler for Pause Menu. Meant to be modified later.")]
     public GameObject pauseCanvas;
 
+    void Start()
+    {
+        pauseCanvas.SetActive(false);
+    }
+
     /// <summary>
     /// Awake function to Create the appropriate number of players depending on
     /// whether there are 1 or two players setup for play from the lobby.
     /// </summary>
 	void Awake () {
         //pauseCanvas.enabled = false;
-        pauseCanvas.SetActive(false);
+        //pauseCanvas.SetActive(false);
 
         switch (StaticSpawnController.GetSetPlayers())
         {
